@@ -3,6 +3,7 @@
 ## Title: MystlerUI
 ## Author: Mystler
 ## OptDeps: LibSharedMedia-3.0
+## Notes: Mystler's UI Tweaks and Additions
 
 #@no-lib-strip@
 libs\LibStub\LibStub.lua
