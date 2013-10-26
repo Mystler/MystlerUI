@@ -6,9 +6,9 @@
 ## Notes: Mystler's UI Tweaks and Additions
 
 #@no-lib-strip@
-libs\LibStub\LibStub.lua
-libs\CallbackHandler-1.0\CallbackHandler-1.0.lua
-libs\LibSharedMedia-3.0\lib.xml
+libs\LibStub.lua
+libs\CallbackHandler-1.0.lua
+libs\LibSharedMedia-3.0.lua
 #@end-no-lib-strip@
 
 MystlerUI.lua
