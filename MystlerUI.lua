@@ -1,5 +1,5 @@
 -- AddOn setup
-MystlerUI = LibStub("AceAddon-3.0"):NewAddon("MystlerUI", "AceEvent-3.0");
+MystlerUI = LibStub("AceAddon-3.0"):NewAddon("MystlerUI", "AceConsole-3.0", "AceEvent-3.0");
 
 -- Register new textures with LibSharedMedia
 LSM = LibStub("LibSharedMedia-3.0");
@@ -33,6 +33,7 @@ function MystlerUI:PoisonAlert()
             not UnitBuff("player", "Mind-numbing Poison")) then
         if MystlerUI.PoisonOK then
             PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master");
+            MystlerUI:Print("One of your poisons is missing. Remember to reapply it!");
         end
         MystlerUI.PoisonOK = false;
     else
@@ -43,6 +44,7 @@ end
 -- Events
 function MystlerUI:PLAYER_DEAD()
     PlaySoundFile([[Interface\Addons\MystlerUI\sfx\defeat.ogg]], "Master");
+    MystlerUI:Print("OMG, you are dead... Try to die less next time, okay?");
 end
 
 function MystlerUI:UNIT_AURA(event, unit)

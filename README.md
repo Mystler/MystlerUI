@@ -7,6 +7,6 @@ Features
 --------
 
 * Custom statusbar textures that can be used in LibSharedMedia AddOns like Recount, Grid, ...
-* Custom sound effects
-  * *Dun dun daaaah* on death
-  * *Poison alert!* on missing poisons (rogue character)
+* Custom sound/voice effects with chat messages on certain events
+  * Death
+  * Missing poisons (rogue class)
