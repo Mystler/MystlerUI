@@ -4,6 +4,7 @@
 ## Author: Mystler
 ## OptDeps: Ace3, LibSharedMedia-3.0
 ## Notes: Mystler's UI Tweaks and Additions
+## SavedVariables: MystlerDB
 
 #@no-lib-strip@
 libs\libs.xml
