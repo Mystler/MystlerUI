@@ -122,7 +122,7 @@ function MystlerUI:PoisonAlert()
             not UnitBuff("player", "Mind-numbing Poison")) then
         if self.PoisonOK then
             self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
-            self:Print("One of your poisons is missing. Remember to reapply it!")
+            self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
         end
         self.PoisonOK = false
     else
@@ -133,7 +133,7 @@ end
 -- Events
 function MystlerUI:PLAYER_DEAD()
     self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\defeat.ogg]], "Master")
-    self:Print("OMG, you are dead... Try to die less next time, okay?")
+    self:Print("OMG, you are dead... You DO know that being dead means you're quite not so alive, do you?")
 end
 
 function MystlerUI:UNIT_AURA(event, unit)
