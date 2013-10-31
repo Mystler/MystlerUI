@@ -73,7 +73,7 @@ function MystlerUI:OnInitialize()
     self.db.RegisterCallback(self, "OnProfileReset", "ApplySettings")
     self:ApplySettings()
     -- Initialize member variables
-    self.PoisonOK = true
+    self.buffOk = true
 end
 
 function MystlerUI:OnEnable()
@@ -113,20 +113,32 @@ function MystlerUI:PlaySoundFile(...)
     end
 end
 
--- Rogue: Poison alert sound check
-function MystlerUI:PoisonAlert()
-    if (not UnitBuff("player", "Deadly Poison") and
-            not UnitBuff("player", "Wound Poison")) or
-            (not UnitBuff("player", "Leeching Poison") and
-            not UnitBuff("player", "Crippling Poison") and
-            not UnitBuff("player", "Mind-numbing Poison")) then
-        if self.PoisonOK then
-            self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
-            self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
+-- Check for important class buffs
+function MystlerUI:BuffCheck()
+    if UnitClass("player") == "Rogue" then
+        if (not UnitBuff("player", "Deadly Poison") and
+                not UnitBuff("player", "Wound Poison")) or
+                (not UnitBuff("player", "Leeching Poison") and
+                not UnitBuff("player", "Crippling Poison") and
+                not UnitBuff("player", "Mind-numbing Poison")) then
+            if self.buffOk then
+                self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
+                self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
+            end
+            self.buffOk = false
+        else
+            self.buffOk = true
         end
-        self.PoisonOK = false
-    else
-        self.PoisonOK = true
+    elseif UnitClass("player") == "Monk" then
+        if not UnitBuff("player", "Legacy of the Emperor") then
+            if self.buffOk then
+                self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\buff.ogg]], "Master")
+                self:Print("To bring balance to the force, you have to spread out your Legacy, Luke!")
+            end
+            self.buffOk = false
+        else
+            self.buffOk = true
+        end
     end
 end
 
@@ -138,8 +150,6 @@ end
 
 function MystlerUI:UNIT_AURA(event, unit)
     if unit == "player" then
-        if UnitClass("player") == "Rogue" then
-            self:PoisonAlert()
-        end
+        self:BuffCheck()
     end
 end
