@@ -120,6 +120,7 @@ function MystlerUI:BuffCheck()
                 not UnitBuff("player", "Wound Poison")) or
                 (not UnitBuff("player", "Leeching Poison") and
                 not UnitBuff("player", "Crippling Poison") and
+                not UnitBuff("player", "Paralytic Poison") and
                 not UnitBuff("player", "Mind-numbing Poison")) then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
