@@ -131,7 +131,8 @@ function MystlerUI:BuffCheck()
             self.buffOk = true
         end
     elseif UnitClass("player") == "Monk" then
-        if not UnitBuff("player", "Legacy of the Emperor") then
+        if not UnitBuff("player", "Legacy of the Emperor") and
+            not UnitBuff("player", "Legacy of the White Tiger") then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\buff.ogg]], "Master")
                 self:Print("To bring balance to the force, you have to spread out your Legacy, Luke!")
