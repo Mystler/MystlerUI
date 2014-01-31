@@ -131,7 +131,7 @@ function MystlerUI:BuffCheck()
             self.buffOk = true
         end
     elseif UnitClass("player") == "Monk" then
-        if not UnitBuff("player", "Legacy of the Emperor") and
+        if not UnitBuff("player", "Legacy of the Emperor") or
             not UnitBuff("player", "Legacy of the White Tiger") then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\buff.ogg]], "Master")
