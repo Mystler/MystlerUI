@@ -117,11 +117,11 @@ end
 function MystlerUI:BuffCheck()
     if UnitClass("player") == "Rogue" then
         if (not UnitBuff("player", "Deadly Poison") and
-                not UnitBuff("player", "Wound Poison")) or
-                (not UnitBuff("player", "Leeching Poison") and
-                not UnitBuff("player", "Crippling Poison") and
-                not UnitBuff("player", "Paralytic Poison") and
-                not UnitBuff("player", "Mind-numbing Poison")) then
+            not UnitBuff("player", "Wound Poison")) or
+            (not UnitBuff("player", "Leeching Poison") and
+            not UnitBuff("player", "Crippling Poison") and
+            not UnitBuff("player", "Paralytic Poison") and
+            not UnitBuff("player", "Mind-numbing Poison")) then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
                 self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
@@ -130,12 +130,12 @@ function MystlerUI:BuffCheck()
         else
             self.buffOk = true
         end
-    elseif UnitClass("player") == "Monk" then
-        if not UnitBuff("player", "Legacy of the Emperor") or
-            not UnitBuff("player", "Legacy of the White Tiger") then
+    elseif UnitClass("player") == "Shaman" then
+        if not UnitBuff("player", "Lightning Shield") and
+            not UnitBuff("player", "Water Shield") then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\buff.ogg]], "Master")
-                self:Print("To bring balance to the force, you have to spread out your Legacy, Luke!")
+                self:Print("Don't ya forget yer shields and enchantments!")
             end
             self.buffOk = false
         else
