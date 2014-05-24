@@ -80,6 +80,13 @@ function MystlerUI:OnEnable()
     -- Register events
     self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("UNIT_AURA")
+    self:RegisterEvent("CHAT_MSG_RAID", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_RAID_LEADER", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_RAID_WARNING", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_INSTANCE_CHAT", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_INSTANCE_CHAT_LEADER", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_PARTY", "RaidChatMessage")
+    self:RegisterEvent("CHAT_MSG_PARTY_LEADER", "RaidChatMessage")
 end
 
 function MystlerUI:OnDisable()
@@ -153,5 +160,16 @@ end
 function MystlerUI:UNIT_AURA(event, unit)
     if unit == "player" then
         self:BuffCheck()
+    end
+end
+
+function MystlerUI:RaidChatMessage(event, msg, ...)
+    msg = string.lower(msg)
+    -- Bloodlust alert for Shaman and Mage
+    if UnitClass("player", "Shaman") or UnitClass("player", "Mage") then
+        if msg == "bl" or msg == "kr" or string.find(msg, "^bl ") or string.find(msg, "^kr ") then
+            self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\bloodlust.ogg]], "Master")
+            self:Print("Can you feel the Bloodlust? No? Then press that damn button!")
+        end
     end
 end

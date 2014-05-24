@@ -9,6 +9,7 @@ Features
 * Custom statusbar textures that can be used in LibSharedMedia AddOns like Recount, Grid, ...
 * Custom sound/voice effects with chat messages on certain events
   * Death
-  * Missing poisons (Rogue)
-  * Missing stat buffs
-    * Monk: Legacy of the Emperor
+  * Missing buff
+    * Rogue: MH or OH Poison
+    * Shaman: Lightning or Water Shield
+  * Bloodlust request in chat (Shaman, Mage)
