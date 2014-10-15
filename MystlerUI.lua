@@ -126,9 +126,7 @@ function MystlerUI:BuffCheck()
         if (not UnitBuff("player", "Deadly Poison") and
             not UnitBuff("player", "Wound Poison")) or
             (not UnitBuff("player", "Leeching Poison") and
-            not UnitBuff("player", "Crippling Poison") and
-            not UnitBuff("player", "Paralytic Poison") and
-            not UnitBuff("player", "Mind-numbing Poison")) then
+            not UnitBuff("player", "Crippling Poison")) then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
                 self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
