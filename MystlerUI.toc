@@ -1,4 +1,4 @@
-## Interface: 60000
+## Interface: 60100
 ## Title: MystlerUI
 ## Author: Mystler
 ## OptDeps: Ace3, LibSharedMedia-3.0
