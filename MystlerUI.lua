@@ -124,7 +124,8 @@ end
 function MystlerUI:BuffCheck()
     if UnitClass("player") == "Rogue" then
         if (not UnitBuff("player", "Deadly Poison") and
-            not UnitBuff("player", "Wound Poison")) or
+            not UnitBuff("player", "Wound Poison") and
+            not UnitBuff("player", "Instant Poison")) or
             (not UnitBuff("player", "Leeching Poison") and
             not UnitBuff("player", "Crippling Poison")) then
             if self.buffOk then
