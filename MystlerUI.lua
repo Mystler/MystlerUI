@@ -8,6 +8,10 @@ LSM:Register(LSM.MediaType.STATUSBAR, "MystlerBar02", [[Interface\Addons\Mystler
 LSM:Register(LSM.MediaType.STATUSBAR, "MystlerBar03", [[Interface\Addons\MystlerUI\tex\MystlerBar03]])
 LSM:Register(LSM.MediaType.STATUSBAR, "MystlerBar04", [[Interface\Addons\MystlerUI\tex\MystlerBar04]])
 
+-- Register some of our sounds
+LSM:Register(LSM.MediaType.SOUND, "Assassinen", [[Interface\Addons\MystlerUI\sfx\assassinen.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DunDunDaah", [[Interface\Addons\MystlerUI\sfx\defeat.ogg]])
+
 -- Option helpers
 local function setOption(info, value)
     MystlerUI.db.profile[info[#info]] = value
