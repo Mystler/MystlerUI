@@ -11,5 +11,4 @@ Features
   * Death
   * Missing buff
     * Rogue: MH or OH Poison
-    * Shaman: Lightning or Water Shield
   * Bloodlust request in chat (Shaman, Mage)

@@ -84,6 +84,7 @@ function MystlerUI:OnEnable()
     -- Register events
     self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("UNIT_AURA")
+    self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
     self:RegisterEvent("CHAT_MSG_RAID", "RaidChatMessage")
     self:RegisterEvent("CHAT_MSG_RAID_LEADER", "RaidChatMessage")
     self:RegisterEvent("CHAT_MSG_RAID_WARNING", "RaidChatMessage")
@@ -126,26 +127,15 @@ end
 
 -- Check for important class buffs
 function MystlerUI:BuffCheck()
-    if UnitClass("player") == "Rogue" then
+    if UnitClass("player") == "Rogue" and GetSpecialization() == 1 then
         if (not UnitBuff("player", "Deadly Poison") and
             not UnitBuff("player", "Wound Poison") and
-            not UnitBuff("player", "Instant Poison")) or
+            not UnitBuff("player", "Agonizing Poison")) or
             (not UnitBuff("player", "Leeching Poison") and
             not UnitBuff("player", "Crippling Poison")) then
             if self.buffOk then
                 self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
                 self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
-            end
-            self.buffOk = false
-        else
-            self.buffOk = true
-        end
-    elseif UnitClass("player") == "Shaman" then
-        if not UnitBuff("player", "Lightning Shield") and
-            not UnitBuff("player", "Water Shield") then
-            if self.buffOk then
-                self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\buff.ogg]], "Master")
-                self:Print("Don't ya forget yer shields and enchantments!")
             end
             self.buffOk = false
         else
@@ -164,6 +154,10 @@ function MystlerUI:UNIT_AURA(event, unit)
     if unit == "player" then
         self:BuffCheck()
     end
+end
+
+function MystlerUI:ACTIVE_TALENT_GROUP_CHANGED(...)
+    self:BuffCheck()
 end
 
 function MystlerUI:RaidChatMessage(event, msg, ...)
