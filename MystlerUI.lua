@@ -17,9 +17,15 @@ LSM:Register(LSM.MediaType.SOUND, "DidThatSting", [[Interface\Addons\MystlerUI\s
 LSM:Register(LSM.MediaType.SOUND, "DieDieDie", [[Interface\Addons\MystlerUI\sfx\ow\die.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "HeroesNeverDie", [[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "DropTheBeat", [[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]])
-LSM:Register(LSM.MediaType.SOUND, "GuardianAngel", [[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "WatchingOverYou", [[Interface\Addons\MystlerUI\sfx\ow\watchingoveryou.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "InMySights", [[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "YourAttention", [[Interface\Addons\MystlerUI\sfx\ow\doihaveyourattention.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "BarrierUp", [[Interface\Addons\MystlerUI\sfx\ow\barrierup.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "HighNoon", [[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "SpeedBoost", [[Interface\Addons\MystlerUI\sfx\ow\speedboost.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "ExperienceTranquility", [[Interface\Addons\MystlerUI\sfx\ow\tranquility.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "GetBack", [[Interface\Addons\MystlerUI\sfx\ow\getback.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "GetBehindMe", [[Interface\Addons\MystlerUI\sfx\ow\getbehindme.ogg]])
 
 -- Option helpers
 local function setOption(info, value)
@@ -144,7 +150,7 @@ function MystlerUI:BuffCheck()
             (not UnitBuff("player", "Leeching Poison") and
             not UnitBuff("player", "Crippling Poison")) then
             if self.buffOk then
-                self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "Master")
+                self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\poison.ogg]], "SFX")
                 self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
             end
             self.buffOk = false
@@ -156,7 +162,7 @@ end
 
 -- Events
 function MystlerUI:PLAYER_DEAD()
-    self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\defeat.ogg]], "Master")
+    self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\defeat.ogg]], "SFX")
     self:Print("OMG, you are dead... You DO know that being dead means you're quite not so alive, do you?")
 end
 
@@ -171,18 +177,29 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
     if type == "SPELL_CAST_SUCCESS" then
         local spell, spellName, spellSchool = select(12, ...)
         -- Priest
-        if spell == 47788 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]], "Master") -- Guardian Spirit
-        elseif spell == 64843 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "Master") -- Divine Hymn
-        elseif spell == 2006 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "Master") -- Resurrection
+        if spell == 47788 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\watchingoveryou.ogg]], "SFX") -- Guardian Spirit
+        elseif spell == 64843 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "SFX") -- Divine Hymn
+        elseif spell == 2006 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX") -- Resurrection
+        elseif spell == 212036 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX") -- Mass Resurrection
+        elseif spell == 73325 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getback.ogg]], "SFX") -- Leap of Faith
+        elseif spell == 62618 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\barrierup.ogg]], "SFX") -- Power Word: Barrier
         -- Rogue
-        elseif spell == 51690 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "Master") -- Killing Spree
-        elseif spell == 200806 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "Master") -- Exsanguinate
-        elseif spell == 121471 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]], "Master") -- Shadow Blades
-        elseif spell == 152150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "Master") -- Death From Above
+        elseif spell == 51690 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "SFX") -- Killing Spree
+        elseif spell == 200806 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "SFX") -- Exsanguinate
+        elseif spell == 121471 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]], "SFX") -- Shadow Blades
+        elseif spell == 152150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "SFX") -- Death From Above
         -- Hunter
-        elseif spell == 120360 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "Master") -- Barrage
-        --Druid
-        elseif spell == 6795 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\doihaveyourattention.ogg]], "Master") -- Growl
+        elseif spell == 120360 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "SFX") -- Barrage
+        -- Druid
+        elseif spell == 6795 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\doihaveyourattention.ogg]], "SFX") -- Growl
+        elseif spell == 740 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\tranquility.ogg]], "SFX") -- Tranquility
+        elseif spell == 106898 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\speedboost.ogg]], "SFX") -- Stampeding Roar
+        -- Shaman
+        elseif spell == 2825 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]], "SFX") -- Bloodlust
+        -- Mage
+        elseif spell == 80353 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]], "SFX") -- Time Warp
+        -- Paladin
+        elseif spell == 204150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getbehindme.ogg]], "SFX") -- Aegis of Light
         end
     end
 end
@@ -196,7 +213,7 @@ function MystlerUI:RaidChatMessage(event, msg, ...)
     -- Bloodlust alert for Shaman and Mage
     if UnitClass("player") == "Shaman" or UnitClass("player") == "Mage" then
         if msg == "bl" or msg == "kr" or string.find(msg, "^bl ") or string.find(msg, "^kr ") then
-            self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\bloodlust.ogg]], "Master")
+            self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\bloodlust.ogg]], "SFX")
             self:Print("Can you feel the Bloodlust? No? Then press that damn button!")
         end
     end
