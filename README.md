@@ -18,9 +18,52 @@ Features
       * Shadow Blades
       * Killing Spree
       * Exsanguinate
+      * Cannonball Barrage
+      * Shadowstep
     * Hunter
       * Barrage
+      * Dragonsfire Grenade
+      * Freezing Trap Trigger
+      * Pet BR and BL
     * Priest
       * Divine Hymn
       * Guardian Spirit
       * Resurrection
+      * Mass Resurrection
+      * Power Word: Barrier
+      * Leap of Faith
+    * Druid
+      * Growl
+      * Tranquility
+      * Survival Instincts
+      * Stampeding Roar
+      * Displacer Beast
+      * Wild Charge
+      * Revitalize
+      * Revive
+      * Rebirth
+    * Shaman
+      * Bloodlust / Heroism
+      * Ancestral Spirit
+      * Ancestral Vision
+    * Mage
+      * Time Warp
+      * Blink
+      * Combustion
+      * Ice Block
+      * Icy Veins
+    * Paladin
+      * Aegis of Light
+      * Redemption
+      * Absolution
+      * Blinding Light
+      * Divine Steed
+    * Warrior
+      * Intercept
+      * Charge
+    * Death Knight
+      * Death Grip
+      * Raise Ally
+    * Monk
+      * Reawaken
+      * Resuscitate
