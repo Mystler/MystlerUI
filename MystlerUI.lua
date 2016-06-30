@@ -19,6 +19,7 @@ LSM:Register(LSM.MediaType.SOUND, "HeroesNeverDie", [[Interface\Addons\MystlerUI
 LSM:Register(LSM.MediaType.SOUND, "DropTheBeat", [[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "GuardianAngel", [[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "InMySights", [[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "YourAttention", [[Interface\Addons\MystlerUI\sfx\ow\doihaveyourattention.ogg]])
 
 -- Option helpers
 local function setOption(info, value)
@@ -168,18 +169,20 @@ end
 function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
     local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = select(1, ...)
     if type == "SPELL_CAST_SUCCESS" then
-        local spellId, spell, spellSchool = select(12, ...)
+        local spell, spellName, spellSchool = select(12, ...)
         -- Priest
-        if spell == "Guardian Spirit" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]], "Master")
-        elseif spell == "Divine Hymn" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "Master")
-        elseif spell == "Resurrection" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "Master")
+        if spell == 47788 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]], "Master") -- Guardian Spirit
+        elseif spell == 64843 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "Master") -- Divine Hymn
+        elseif spell == 2006 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "Master") -- Resurrection
         -- Rogue
-        elseif spell == "Killing Spree" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "Master")
-        elseif spell == "Exsanguinate" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "Master")
-        elseif spell == "Shadow Blades" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]], "Master")
-        elseif spell == "Death from Above" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "Master")
+        elseif spell == 51690 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "Master") -- Killing Spree
+        elseif spell == 200806 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "Master") -- Exsanguinate
+        elseif spell == 121471 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]], "Master") -- Shadow Blades
+        elseif spell == 152150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "Master") -- Death From Above
         -- Hunter
-        elseif spell == "Barrage" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "Master")
+        elseif spell == 120360 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "Master") -- Barrage
+        --Druid
+        elseif spell == 6795 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\doihaveyourattention.ogg]], "Master") -- Growl
         end
     end
 end

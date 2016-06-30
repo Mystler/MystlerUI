@@ -23,3 +23,4 @@ Features
     * Priest
       * Divine Hymn
       * Guardian Spirit
+      * Resurrection
