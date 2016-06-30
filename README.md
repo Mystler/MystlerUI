@@ -12,3 +12,14 @@ Features
   * Missing buff
     * Rogue: MH or OH Poison
   * Bloodlust request in chat (Shaman, Mage)
+  * Overwatch Sounds on some spells
+    * Rogue
+      * Death From Above
+      * Shadow Blades
+      * Killing Spree
+      * Exsanguinate
+    * Hunter
+      * Barrage
+    * Priest
+      * Divine Hymn
+      * Guardian Spirit

@@ -11,6 +11,14 @@ LSM:Register(LSM.MediaType.STATUSBAR, "MystlerBar04", [[Interface\Addons\Mystler
 -- Register some of our sounds
 LSM:Register(LSM.MediaType.SOUND, "Assassinen", [[Interface\Addons\MystlerUI\sfx\assassinen.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "DunDunDaah", [[Interface\Addons\MystlerUI\sfx\defeat.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DeathComes", [[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DeathFromAbove", [[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DidThatSting", [[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DieDieDie", [[Interface\Addons\MystlerUI\sfx\ow\die.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "HeroesNeverDie", [[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DropTheBeat", [[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "GuardianAngel", [[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "InMySights", [[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]])
 
 -- Option helpers
 local function setOption(info, value)
@@ -84,6 +92,7 @@ function MystlerUI:OnEnable()
     -- Register events
     self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("UNIT_AURA")
+    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
     self:RegisterEvent("CHAT_MSG_RAID", "RaidChatMessage")
     self:RegisterEvent("CHAT_MSG_RAID_LEADER", "RaidChatMessage")
@@ -153,6 +162,25 @@ end
 function MystlerUI:UNIT_AURA(event, unit)
     if unit == "player" then
         self:BuffCheck()
+    end
+end
+
+function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
+    local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = select(1, ...)
+    if type == "SPELL_CAST_SUCCESS" then
+        local spellId, spell, spellSchool = select(12, ...)
+        -- Priest
+        if spell == "Guardian Spirit" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\yourpersonalguardian.ogg]], "Master")
+        elseif spell == "Divine Hymn" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "Master")
+        elseif spell == "Resurrection" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "Master")
+        -- Rogue
+        elseif spell == "Killing Spree" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "Master")
+        elseif spell == "Exsanguinate" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "Master")
+        elseif spell == "Shadow Blades" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathcomes.ogg]], "Master")
+        elseif spell == "Death from Above" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "Master")
+        -- Hunter
+        elseif spell == "Barrage" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "Master")
+        end
     end
 end
 
