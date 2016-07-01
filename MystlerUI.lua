@@ -39,6 +39,18 @@ LSM:Register(LSM.MediaType.SOUND, "MeiUltimate", [[Interface\Addons\MystlerUI\sf
 LSM:Register(LSM.MediaType.SOUND, "JunkratGotcha", [[Interface\Addons\MystlerUI\sfx\ow\gotcha.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "BackInTheSaddleAgain", [[Interface\Addons\MystlerUI\sfx\ow\backinthesaddle.ogg]])
 LSM:Register(LSM.MediaType.SOUND, "JunkratFireInTheHole", [[Interface\Addons\MystlerUI\sfx\ow\fireinthehole.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "ISeeYou", [[Interface\Addons\MystlerUI\sfx\ow\iseeyou.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "IllRaceYa", [[Interface\Addons\MystlerUI\sfx\ow\illraceya.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "ReaperWraithWalk", [[Interface\Addons\MystlerUI\sfx\ow\wraithwalk.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "OneManApocalypse", [[Interface\Addons\MystlerUI\sfx\ow\onemanapocalypse.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "JunkratLaugh", [[Interface\Addons\MystlerUI\sfx\ow\junkratlaugh.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "SquealForMe", [[Interface\Addons\MystlerUI\sfx\ow\squealforme.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "RoadhogShutUp", [[Interface\Addons\MystlerUI\sfx\ow\shutup.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "WereAllAnimals", [[Interface\Addons\MystlerUI\sfx\ow\wereallanimals.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "JusticeWillBeDone", [[Interface\Addons\MystlerUI\sfx\ow\justicewillbedone.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "BeShielded", [[Interface\Addons\MystlerUI\sfx\ow\beshielded.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "DarknessConsumes", [[Interface\Addons\MystlerUI\sfx\ow\thedarkness.ogg]])
+LSM:Register(LSM.MediaType.SOUND, "AngelOfDeath", [[Interface\Addons\MystlerUI\sfx\ow\angelofdeath.ogg]])
 
 -- Option helpers
 local function setOption(info, value)
@@ -65,7 +77,7 @@ local options = {
         enabled = {
             order = 1,
             name = "Enable",
-            desc = "Enables / disables all MystlerUI features",
+            desc = "Enables / disables all MystlerUI features.",
             type = "toggle",
             set = setEnabled,
             get = getOption,
@@ -73,7 +85,15 @@ local options = {
         sound = {
             order = 2,
             name = "Enable Sound FX",
-            desc = "Enables / disables playing the custom sound effects",
+            desc = "Enables / disables playing the custom sound effects.",
+            type = "toggle",
+            set = setOption,
+            get = getOption,
+        },
+        onlyme = {
+            order = 3,
+            name = "Only Me",
+            desc = "Only play custom sounds for the local player.",
             type = "toggle",
             set = setOption,
             get = getOption,
@@ -86,6 +106,7 @@ local defaults = {
     profile = {
         enabled = true,
         sound = true,
+        onlyme = false,
     },
 }
 
@@ -187,15 +208,22 @@ end
 
 function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
     local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = select(1, ...)
+
+    -- Only Me?
+    if self.db.profile.onlyme and sourceGUID ~= UnitGUID("player") then
+        return
+    end
+
     if type == "SPELL_CAST_SUCCESS" then
         local spell, spellName, spellSchool = select(12, ...)
         -- Priest
-        if spellName == "Guardian Spirit" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\watchingoveryou.ogg]], "SFX") -- Guardian Spirit
+        if spellName == "Guardian Spirit" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\watchingoveryou.ogg]], "SFX")
         elseif spell == 64843 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\letsdropthebeat.ogg]], "SFX") -- Divine Hymn
         elseif spellName == "Resurrection" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Mass Resurrection" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
-        elseif spellName == "Leap of Faith" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getback.ogg]], "SFX") -- Leap of Faith
+        elseif spellName == "Leap of Faith" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getback.ogg]], "SFX")
         elseif spell == 62618 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\barrierup.ogg]], "SFX") -- Power Word: Barrier
+        elseif spellName == "Silence" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\shutup.ogg]], "SFX")
         -- Rogue
         elseif spell == 51690 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "SFX") -- Killing Spree
         elseif spell == 200806 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "SFX") -- Exsanguinate
@@ -203,6 +231,8 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
         elseif spell == 152150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\deathfromabove.ogg]], "SFX") -- Death From Above
         elseif spell == 185767 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\justice.ogg]], "SFX") -- Cannonball Barrage
         elseif spellName == "Shadowstep" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\repos.ogg]], "SFX")
+        elseif spellName == "Vendetta" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\iseeyou.ogg]], "SFX")
+        elseif spellName == "Sprint" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\illraceya.ogg]], "SFX")
         -- Hunter
         elseif spell == 120360 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\ivegotyou.ogg]], "SFX") -- Barrage
         elseif spell == 194855 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\fireinthehole.ogg]], "SFX") -- Dragonsfire Grenade
@@ -221,32 +251,46 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
         elseif spellName == "Revitalize" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Revive" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Rebirth" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
+        elseif spellName == "Dash" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\illraceya.ogg]], "SFX")
         -- Shaman
         elseif spellName == "Bloodlust" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]], "SFX")
         elseif spellName == "Heroism" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]], "SFX")
         elseif spellName == "Ancestral Spirit" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Ancestral Vision" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
+        elseif spellName == "Feral Lunge" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\charge.ogg]], "SFX")
         -- Mage
         elseif spellName == "Time Warp" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\highnoon.ogg]], "SFX")
         elseif spellName == "Blink" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\blink.ogg]], "SFX")
         elseif spellName == "Combustion" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\moltencore.ogg]], "SFX")
         elseif spellName == "Ice Block" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\omg.ogg]], "SFX")
         elseif spellName == "Icy Veins" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\meiult.ogg]], "SFX")
+        elseif spellName == "Polymorph" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\wereallanimals.ogg]], "SFX")
         -- Paladin
         elseif spell == 204150 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getbehindme.ogg]], "SFX") -- Aegis of Light
         elseif spellName == "Redemption" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Absolution" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Blinding Light" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\holdupnow.ogg]], "SFX")
         elseif spellName == "Divine Steed" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\backinthesaddle.ogg]], "SFX")
+        elseif spellName == "Hammer of Justice" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\justicewillbedone.ogg]], "SFX")
+        elseif spellName == "Blessing of Protection" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\beshielded.ogg]], "SFX")
         -- Warrior
         elseif spellName == "Intercept" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\charge.ogg]], "SFX")
         elseif spellName == "Charge" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\charge.ogg]], "SFX")
         -- Death Knight
         elseif spellName == "Death Grip" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\anchors.ogg]], "SFX")
         elseif spellName == "Raise Ally" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
+        elseif spell == 212552 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\wraithwalk.ogg]], "SFX") -- Wraith Walk
+        elseif spellName == "Asphyxiate" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\squealforme.ogg]], "SFX")
         -- Monk
         elseif spellName == "Reawaken" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
         elseif spellName == "Resuscitate" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\heroesneverdie.ogg]], "SFX")
+        -- Warlock
+        elseif spellName == "Cataclysm" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\onemanapocalypse.ogg]], "SFX")
+        -- Demon Hunter
+        elseif spell == 198013 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\angelofdeath.ogg]], "SFX") -- Eye Beam
+        elseif spellName == "Darkness" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\thedarkness.ogg]], "SFX")
+        -- Other
+        elseif spellName == "Arcane Torrent" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\shutup.ogg]], "SFX")
         end
     elseif type == "SPELL_AURA_APPLIED" then
         local spell, spellName, spellSchool = select(12, ...)

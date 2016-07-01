@@ -20,6 +20,8 @@ Features
       * Exsanguinate
       * Cannonball Barrage
       * Shadowstep
+      * Vendetta
+      * Sprint
     * Hunter
       * Barrage
       * Dragonsfire Grenade
@@ -32,6 +34,7 @@ Features
       * Mass Resurrection
       * Power Word: Barrier
       * Leap of Faith
+      * Silence
     * Druid
       * Growl
       * Tranquility
@@ -42,28 +45,41 @@ Features
       * Revitalize
       * Revive
       * Rebirth
+      * Dash
     * Shaman
       * Bloodlust / Heroism
       * Ancestral Spirit
       * Ancestral Vision
+      * Feral Lunge
     * Mage
       * Time Warp
       * Blink
       * Combustion
       * Ice Block
       * Icy Veins
+      * Polymorph
     * Paladin
       * Aegis of Light
       * Redemption
       * Absolution
       * Blinding Light
       * Divine Steed
+      * Hammer of Justice
+      * Blessing of Protection
     * Warrior
-      * Intercept
-      * Charge
+      * Intercept / Charge
     * Death Knight
       * Death Grip
       * Raise Ally
+      * Wraith Walk
+      * Asphyxiate
     * Monk
       * Reawaken
       * Resuscitate
+    * Warlock
+      * Cataclysm
+    * Demon Hunter
+      * Eye Beam
+      * Darkness
+    * Other
+      * Arcane Torrent
