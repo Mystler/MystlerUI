@@ -35,6 +35,7 @@ Features
       * Power Word: Barrier
       * Leap of Faith
       * Silence
+      * Surrender to Madness
     * Druid
       * Growl
       * Tranquility

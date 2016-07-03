@@ -224,6 +224,7 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
         elseif spellName == "Leap of Faith" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\getback.ogg]], "SFX")
         elseif spell == 62618 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\barrierup.ogg]], "SFX") -- Power Word: Barrier
         elseif spellName == "Silence" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\shutup.ogg]], "SFX")
+        elseif spellName == "Surrender to Madness" then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\junkratlaugh.ogg]], "SFX")
         -- Rogue
         elseif spell == 51690 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\die.ogg]], "SFX") -- Killing Spree
         elseif spell == 200806 then self:PlaySoundFile([[Interface\Addons\MystlerUI\sfx\ow\didthatsting.ogg]], "SFX") -- Exsanguinate
