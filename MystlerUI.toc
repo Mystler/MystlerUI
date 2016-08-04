@@ -10,3 +10,5 @@ libs\libs.xml
 #@end-no-lib-strip@
 
 MystlerUI.lua
+SharedMedia.lua
+SpellFX.lua

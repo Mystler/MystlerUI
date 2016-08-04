@@ -30,8 +30,7 @@ Features
     * Priest
       * Divine Hymn
       * Guardian Spirit
-      * Resurrection
-      * Mass Resurrection
+      * Resurrection / Mass Resurrection
       * Power Word: Barrier
       * Leap of Faith
       * Silence
@@ -43,14 +42,11 @@ Features
       * Stampeding Roar
       * Displacer Beast
       * Wild Charge
-      * Revitalize
-      * Revive
-      * Rebirth
+      * Revitalize / Revive / Rebirth
       * Dash
     * Shaman
       * Bloodlust / Heroism
-      * Ancestral Spirit
-      * Ancestral Vision
+      * Ancestral Spirit / Ancestral Vision / Reincarnation
       * Feral Lunge
     * Mage
       * Time Warp
@@ -61,8 +57,7 @@ Features
       * Polymorph
     * Paladin
       * Aegis of Light
-      * Redemption
-      * Absolution
+      * Redemption / Absolution
       * Blinding Light
       * Divine Steed
       * Hammer of Justice
@@ -75,8 +70,7 @@ Features
       * Wraith Walk
       * Asphyxiate
     * Monk
-      * Reawaken
-      * Resuscitate
+      * Reawaken / Resuscitate
     * Warlock
       * Cataclysm
     * Demon Hunter
