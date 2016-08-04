@@ -68,17 +68,19 @@ function MystlerUI:OnInitialize()
     self.db.RegisterCallback(self, "OnProfileChanged", "ApplySettings")
     self.db.RegisterCallback(self, "OnProfileCopied", "ApplySettings")
     self.db.RegisterCallback(self, "OnProfileReset", "ApplySettings")
-    self:ApplySettings()
     -- Initialize member variables
     self.buffOk = true
+    self.alive = false
+    self:ApplySettings()
 end
 
 function MystlerUI:OnEnable()
     -- Register events
+    self:RegisterEvent("PLAYER_ALIVE")
     self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("UNIT_AURA")
-    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
+    self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     self:RegisterEvent("CHAT_MSG_RAID", "RaidChatMessage")
     self:RegisterEvent("CHAT_MSG_RAID_LEADER", "RaidChatMessage")
     self:RegisterEvent("CHAT_MSG_RAID_WARNING", "RaidChatMessage")
@@ -121,6 +123,7 @@ end
 
 -- Check for important class buffs
 function MystlerUI:BuffCheck()
+    if not self.alive then return end
     if UnitClass("player") == "Rogue" and GetSpecialization() == 1 then
         if (not UnitBuff("player", GetSpellInfo(2823)) and -- Deadly Poison
             not UnitBuff("player", GetSpellInfo(8679)) and -- Wound Poison
@@ -139,7 +142,14 @@ function MystlerUI:BuffCheck()
 end
 
 -- Events
-function MystlerUI:PLAYER_DEAD()
+function MystlerUI:PLAYER_ALIVE(event, ...)
+    self.alive = true
+    self.buffOk = true
+    self:BuffCheck()
+end
+
+function MystlerUI:PLAYER_DEAD(event, ...)
+    self.alive = false
     self:PlaySoundFile(addonpath.."sfx\\defeat.ogg", "SFX")
     self:Print("OMG, you are dead... You DO know that being dead means you're quite not so alive, do you?")
 end
@@ -148,6 +158,10 @@ function MystlerUI:UNIT_AURA(event, unit)
     if unit == "player" then
         self:BuffCheck()
     end
+end
+
+function MystlerUI:ACTIVE_TALENT_GROUP_CHANGED(event, ...)
+    self:BuffCheck()
 end
 
 function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
@@ -181,10 +195,6 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
             end
         end
     end
-end
-
-function MystlerUI:ACTIVE_TALENT_GROUP_CHANGED(...)
-    self:BuffCheck()
 end
 
 function MystlerUI:RaidChatMessage(event, msg, ...)
