@@ -15,6 +15,10 @@ LSM:Register(LSM.MediaType.FONT, "Roboto-Regular", addonpath.."fonts\\Roboto-Reg
 -- Register some of our sounds
 LSM:Register(LSM.MediaType.SOUND, "Assassinen", addonpath.."sfx\\assassinen.ogg")
 LSM:Register(LSM.MediaType.SOUND, "DunDunDaah", addonpath.."sfx\\defeat.ogg")
+LSM:Register(LSM.MediaType.SOUND, "BloodlustTime", addonpath.."sfx\\bloodlust.ogg")
+LSM:Register(LSM.MediaType.SOUND, "PoisonAlert", addonpath.."sfx\\poison.ogg")
+LSM:Register(LSM.MediaType.SOUND, "BuffAlert", addonpath.."sfx\\buff.ogg")
+
 LSM:Register(LSM.MediaType.SOUND, "DeathComes", addonpath.."sfx\\ow\\deathcomes.ogg")
 LSM:Register(LSM.MediaType.SOUND, "DeathFromAbove", addonpath.."sfx\\ow\\deathfromabove.ogg")
 LSM:Register(LSM.MediaType.SOUND, "DidThatSting", addonpath.."sfx\\ow\\didthatsting.ogg")

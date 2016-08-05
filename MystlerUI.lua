@@ -37,7 +37,7 @@ local options = {
         onlyme = {
             order = 3,
             name = "Only Me",
-            desc = "Only play custom sounds for the local player.",
+            desc = "Only play sounds for spells if the local player uses them.",
             type = "toggle",
             set = setOption,
             get = getOption,
@@ -68,30 +68,15 @@ function MystlerUI:OnInitialize()
     self.db.RegisterCallback(self, "OnProfileChanged", "ApplySettings")
     self.db.RegisterCallback(self, "OnProfileCopied", "ApplySettings")
     self.db.RegisterCallback(self, "OnProfileReset", "ApplySettings")
-    -- Initialize member variables
-    self.buffOk = true
-    self.alive = false
     self:ApplySettings()
 end
 
 function MystlerUI:OnEnable()
-    -- Register events
-    self:RegisterEvent("PLAYER_ALIVE")
     self:RegisterEvent("PLAYER_DEAD")
-    self:RegisterEvent("UNIT_AURA")
-    self:RegisterEvent("ACTIVE_TALENT_GROUP_CHANGED")
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
-    self:RegisterEvent("CHAT_MSG_RAID", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_RAID_LEADER", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_RAID_WARNING", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_INSTANCE_CHAT", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_INSTANCE_CHAT_LEADER", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_PARTY", "RaidChatMessage")
-    self:RegisterEvent("CHAT_MSG_PARTY_LEADER", "RaidChatMessage")
 end
 
 function MystlerUI:OnDisable()
-    -- Unregister events
     self:UnregisterAllEvents()
 end
 
@@ -121,47 +106,10 @@ function MystlerUI:PlaySoundFile(...)
     end
 end
 
--- Check for important class buffs
-function MystlerUI:BuffCheck()
-    if not self.alive then return end
-    if UnitClass("player") == "Rogue" and GetSpecialization() == 1 then
-        if (not UnitBuff("player", GetSpellInfo(2823)) and -- Deadly Poison
-            not UnitBuff("player", GetSpellInfo(8679)) and -- Wound Poison
-            not UnitBuff("player", GetSpellInfo(200802))) or -- Agonizing Poison
-            (not UnitBuff("player", GetSpellInfo(108211)) and -- Leeching Poison
-            not UnitBuff("player", GetSpellInfo(3408))) then -- Crippling Poison
-            if self.buffOk then
-                self:PlaySoundFile(addonpath.."sfx\\poison.ogg", "SFX")
-                self:Print("One of your poisons is missing. Ugh, don't be so healthy!")
-            end
-            self.buffOk = false
-        else
-            self.buffOk = true
-        end
-    end
-end
 
 -- Events
-function MystlerUI:PLAYER_ALIVE(event, ...)
-    self.alive = true
-    self.buffOk = true
-    self:BuffCheck()
-end
-
 function MystlerUI:PLAYER_DEAD(event, ...)
-    self.alive = false
     self:PlaySoundFile(addonpath.."sfx\\defeat.ogg", "SFX")
-    self:Print("OMG, you are dead... You DO know that being dead means you're quite not so alive, do you?")
-end
-
-function MystlerUI:UNIT_AURA(event, unit)
-    if unit == "player" then
-        self:BuffCheck()
-    end
-end
-
-function MystlerUI:ACTIVE_TALENT_GROUP_CHANGED(event, ...)
-    self:BuffCheck()
 end
 
 function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
@@ -193,17 +141,6 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
                 self:PlaySoundFile(sound, "SFX")
                 return
             end
-        end
-    end
-end
-
-function MystlerUI:RaidChatMessage(event, msg, ...)
-    msg = string.lower(msg)
-    -- Bloodlust alert for Shaman and Mage
-    if UnitClass("player") == "Shaman" or UnitClass("player") == "Mage" then
-        if string.find(msg, "^bl ") or string.find(msg, "^kr ") then
-            self:PlaySoundFile(addonpath.."sfx\\bloodlust.ogg", "SFX")
-            self:Print("Can you feel the Bloodlust? No? Then press that damn button!")
         end
     end
 end

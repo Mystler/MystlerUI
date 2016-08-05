@@ -9,9 +9,6 @@ Features
 * Custom statusbar textures and fonts that can be used in LibSharedMedia AddOns like Recount, Grid, ...
 * Custom sound/voice effects with chat messages on certain events
   * Death
-  * Missing buff
-    * Rogue: MH or OH Poison
-  * Bloodlust request in chat (Shaman, Mage)
   * Overwatch Sounds on some spells
     * Rogue
       * Death From Above
