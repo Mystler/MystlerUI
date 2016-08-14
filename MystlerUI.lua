@@ -72,6 +72,7 @@ function MystlerUI:OnInitialize()
 end
 
 function MystlerUI:OnEnable()
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("PLAYER_DEAD")
     self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
 end
@@ -108,6 +109,10 @@ end
 
 
 -- Events
+function MystlerUI:PLAYER_ENTERING_WORLD(event, ...)
+    SetCVar("cameraDistanceMaxFactor", 2.6)
+end
+
 function MystlerUI:PLAYER_DEAD(event, ...)
     self:PlaySoundFile(addonpath.."sfx\\defeat.ogg", "SFX")
 end
