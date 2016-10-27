@@ -110,7 +110,7 @@ end
 
 -- Events
 function MystlerUI:PLAYER_ENTERING_WORLD(event, ...)
-    SetCVar("cameraDistanceMaxFactor", 2.6)
+    SetCVar("cameraDistanceMaxZoomFactor", 2.6)
 end
 
 function MystlerUI:PLAYER_DEAD(event, ...)
