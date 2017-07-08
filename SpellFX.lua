@@ -51,6 +51,7 @@ L.SFXCastSuccessSpellIDs = {
     -- Mage
     [80353] = owsound.."highnoon.ogg", -- Time Warp
     [1953] = owsound.."blink.ogg", -- Blink
+    [212653] = owsound.."blink.ogg", -- Shimmer
     [190319] = owsound.."moltencore.ogg", -- Combustion
     [45438] = owsound.."omg.ogg", -- Ice Block
     [12472] = owsound.."meiult.ogg", -- Icy Veins
