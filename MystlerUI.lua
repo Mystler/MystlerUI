@@ -118,7 +118,7 @@ function MystlerUI:PLAYER_DEAD(event, ...)
 end
 
 function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
-    local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = select(1, ...)
+    local timestamp, type, hideCaster, sourceGUID, sourceName, sourceFlags, sourceFlags2, destGUID, destName, destFlags, destFlags2 = CombatLogGetCurrentEventInfo()
 
     -- Only Me?
     if self.db.profile.onlyme and sourceGUID ~= UnitGUID("player") then
@@ -126,7 +126,7 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
     end
 
     if type == "SPELL_CAST_SUCCESS" then
-        local spellID, spellName, spellSchool = select(12, ...)
+        local spellID, spellName, spellSchool = select(12, CombatLogGetCurrentEventInfo())
         for id, sound in pairs(L.SFXCastSuccessSpellIDs) do
             if id == spellID then
                 self:PlaySoundFile(sound, "SFX")
@@ -140,7 +140,7 @@ function MystlerUI:COMBAT_LOG_EVENT_UNFILTERED(event, ...)
             end
         end
     elseif type == "SPELL_AURA_APPLIED" then
-        local spellID, spellName, spellSchool = select(12, ...)
+        local spellID, spellName, spellSchool = select(12, CombatLogGetCurrentEventInfo())
         for name, sound in pairs(L.SFXAuraAppliedSpellNames) do
             if name == spellName then
                 self:PlaySoundFile(sound, "SFX")
